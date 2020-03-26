@@ -20,3 +20,5 @@ Parameters required - vector contaning all the of obstacles, width of cspace, he
 Plot Result:
 
 1. run plotter/Plotter.py - requires "Path.txt" and "Obstacles.txt" file in plotter folder
+
+Output:
