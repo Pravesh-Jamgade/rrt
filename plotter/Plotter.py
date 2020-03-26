@@ -7,7 +7,7 @@ HEIGHT = 400
 offset = 30
 DIM = WIDTH, HEIGHT
 window = pygame.display.set_mode(DIM)
-pygame.display.set_caption("I'm Window")
+pygame.display.set_caption("Plot")
 run = True
 
 if __name__ == "__main__":
