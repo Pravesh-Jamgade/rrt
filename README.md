@@ -15,4 +15,8 @@ Parameters required - vector contaning all the of obstacles, width of cspace, he
    
 5. Call run() method using RRTMain object
 6. Call save() methos using RRTMain object.
-7. Path.txt will be generated, containing x,y co-ordinate's.
+7. Path.txt and Obstacles.txt will be generated, containing x,y co-ordinate's.
+
+Plot Result:
+
+1. run plotter/Plotter.py - requires in Path.txt and Obstacles.txt file in plotter folder
