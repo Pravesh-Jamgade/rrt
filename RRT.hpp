@@ -31,6 +31,7 @@ const int TOP = 8;
 const int BOTTOM = 4;
 const double GOAL_THRESOLD = 5.0;
 const char* RRT_PATH = "Path.txt";
+const char* OBSTACLE_PATH = "Obstacle.txt";
 #endif
 
 
@@ -79,6 +80,21 @@ class Cobs{
 			dEnd.second = dEnd.second< 0 ? 0: dEnd.second;
 			dEnd.second = dEnd.second>= HEIGHT ? HEIGHT-1: dEnd.second;
 		}
+
+        vector<vertex> getAllCorners(){
+                vector<vertex> allCorners;
+                allCorners.push_back(dStart);
+
+                vertex rightOfStart = make_pair(dEnd.first, dStart.second);
+                allCorners.push_back(rightOfStart);
+
+                allCorners.push_back(dEnd);
+
+                vertex leftOfEnd = make_pair(dStart.first, dEnd.second);
+                allCorners.push_back(leftOfEnd);
+
+                return allCorners;
+         }
 
 		vector<vertex> getBoundingbox(){
 			dEnd.first = dStart.first + CoWidth;
@@ -192,12 +208,12 @@ class Cobs{
 };
 
 ostream& operator<<(ostream& os, const Cobs co){
-		os << '('<<co.startx<<','<<co.starty<<", "<<co.endx<<", "<<co.endy<<")"<<" ";
+        os << '('<<co.startx<<','<<co.starty<<", "<<co.endx<<", "<<co.endy<<")"<<" ";
 		return os;
 	}
 
 ostream& operator<<(ostream& os, const vertex v){
-    os << "(" << v.first<<", "<<v.second<<")";
+    os<< v.first<<" "<<v.second;
 	return os;
 }
 
@@ -435,14 +451,28 @@ class RRTMain{
                 return;
             }
             cCurrentPath[sizeof(cCurrentPath) - 1] = '\0'; /* not really required */
+
+            // traced path to file
             cout<<"Path Write back to File: "<<this->path.size()<<endl;
             ofstream fileStream(RRT_PATH, ios::out | ios::trunc);
-             fileStream<<this->goal;
+            fileStream<<this->goal;
+
             for(int i=0; i< int(path.size()); i++){
-                cout<<i;
                    Node* cur = path[i];
                    fileStream<<cur;
             }
+            fileStream.close();
+
+            // input obstacles to file
+            cout<<"Obstacles Write back to File: "<<this->obstacles.size()<<endl;
+            fileStream.open(OBSTACLE_PATH, ios::out | ios::trunc);
+
+            for(auto obstacle: obstacles){
+                fileStream<<obstacle.dStart<<" "<<obstacle.CoWidth<<" "<<obstacle.CoWidth;
+                fileStream<<'\n';
+            }
+
+            fileStream.close();
         }
 };
 
