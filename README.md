@@ -21,4 +21,4 @@ Plot Result:
 
 1. run plotter/Plotter.py - requires "Path.txt" and "Obstacles.txt" file in plotter folder
 
-Output:
+NOTE: Although application is written in qt, it is still a console application not using any qt features. Improvements need to be added to make it fully functional qt application.
